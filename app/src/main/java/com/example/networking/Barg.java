@@ -17,7 +17,7 @@ public Barg(String inName, String inType, String inCompany, String inLocation,in
     location=inLocation;
     size=inSize;
 }
-public Barg(String inName){
+public Barg(String matterhorn, String inName, int i){
     name=inName;
     company="";
     type="bro";
@@ -25,6 +25,9 @@ public Barg(String inName){
     size=8611;
 
 }
+
+    public Barg(String k2) {
+    }
 
     @NonNull
     @Override
