@@ -2,26 +2,32 @@ package com.example.networking;
 
 import androidx.annotation.NonNull;
 
-public class Barg {
+class mobilprog_k2{
     //variabler
     private String name;
     private String location;
     private int size;
+    private int cost;
+    private String type;
 
-    public Barg(String inName, String inType, String inCompany, String inLocation, int inSize) {
+
+    public mobilprog_k2(String inName, String inType, String inCompany, String inLocation, int inSize) {
         name = inName;
         location = inLocation;
         size = inSize;
+        type =inType;
     }
 
-    public Barg(String matterhorn, String inName, int i) {
+    public mobilprog_k2(String matterhorn, String inName) {
         name = inName;
         location = "";
         size = 8611;
+        cost = 28251;
+
 
     }
 
-    public Barg(String k2) {
+    public mobilprog_k2(String k2) {
     }
 
     @NonNull
@@ -32,15 +38,14 @@ public class Barg {
 
     public String info() {
         String str = name;
-        str += "The Karakoram range";
+        str += "det befinner sig";
         str += location;
-        str += "8611";
+        str += "storleken";
         str += Integer.toString(size);
         str += "B.";
         return str;
 
     }
-
     public void setSize(int newSize) {
         size = newSize;
         location = "";
