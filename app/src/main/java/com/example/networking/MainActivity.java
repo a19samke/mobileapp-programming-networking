@@ -1,10 +1,12 @@
 package com.example.networking;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.UrlQuerySanitizer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,14 +39,18 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bTextViewrerult = findViewById(R.id.text_viewer);
-        Button buttonparse = findViewById(R.id.button_parse);
+        final Button buttonparse = findViewById(R.id.button_parse);
         buttonparse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JsonTask();
+                new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
             }
         });
+
+
+
     }
+
     @SuppressLint("StaticFieldLeak")
     private class JsonTask extends AsyncTask<String, String, String> {
 
@@ -52,7 +58,6 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
         private BufferedReader reader = null;
 
         protected String doInBackground(String... params) {
-            new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
@@ -88,9 +93,20 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String json) {
-            Log.d("TAG", json);
+            super.onPostExecute(json);
+           bTextViewrerult.setText(json);
+
+        }
+
+    }
+    private class JSNONTASK extends AsyncTask<URL,String,String>{
+        @Override
+        protected String doInBackground(URL... urls) {
+            return null;
         }
     }
 
+
 }
+
 
