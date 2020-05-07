@@ -71,10 +71,37 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
                 while ((line = reader.readLine()) != null && !isCancelled()) {
                     builder.append(line).append("\n");
                 }
-                return builder.toString();
+
+                String finaljson = builder.toString();
+                JSONObject parentobject = new JSONObject(finaljson);
+                JSONArray parentArray = parentobject.getJSONArray("Mountain");
+
+                StringBuilder finalBuilderbTextViewrerult = new StringBuilder();
+                for (int i=0; i<parentArray.length(); i++){
+                    JSONObject finalobject = parentArray.getJSONObject(i);
+
+                   String Mountain =finalobject.getString("Mountain");
+                    String ID =finalobject.getString("ID");
+                   String name = finalobject.getString("name");
+                   String type = finalobject.getString("type");
+                   String company = finalobject.getString("company");
+                   String location = finalobject.getString("location");
+                   String category = finalobject.getString("category");
+                   int  size = finalobject.getInt("size");
+                   int  cost = finalobject.getInt("cost");
+
+                   finalBuilderbTextViewrerult.append(Mountain +"_" + ID + "_" + name + "_" + type +"_" + company +"_"
+                   +location+ "_" + category + "_" + size + "_" + cost + "\n");
+
+                }
+                return finalBuilderbTextViewrerult.toString();
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (connection != null) {
