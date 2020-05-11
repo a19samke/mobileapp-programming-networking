@@ -1,19 +1,27 @@
 package com.example.networking;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.UrlQuerySanitizer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,22 +36,23 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
-public class MainActivity<RequestQueue> extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private TextView bTextViewrerult;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bTextViewrerult = findViewById(R.id.text_viewer);
+        bTextViewrerult = findViewById(R.id.textView2);
         final Button buttonparse = findViewById(R.id.button_parse);
         buttonparse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+
             }
         });
 
@@ -74,27 +83,29 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
 
                 String finaljson = builder.toString();
                 JSONObject parentobject = new JSONObject(finaljson);
-                JSONArray parentArray = parentobject.getJSONArray("Mountain");
+                JSONArray parentArray = parentobject.getJSONArray("name");
 
                 StringBuilder finalBuilderbTextViewrerult = new StringBuilder();
-                for (int i=0; i<parentArray.length(); i++){
+                for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalobject = parentArray.getJSONObject(i);
 
-                   String Mountain =finalobject.getString("Mountain");
-                    String ID =finalobject.getString("ID");
-                   String name = finalobject.getString("name");
-                   String type = finalobject.getString("type");
-                   String company = finalobject.getString("company");
-                   String location = finalobject.getString("location");
-                   String category = finalobject.getString("category");
-                   int  size = finalobject.getInt("size");
-                   int  cost = finalobject.getInt("cost");
+                    String type= finalobject.getString("type");
+                    String ID = finalobject.getString("ID");
+                    String name = finalobject.getString("name");
+                    String company = finalobject.getString("company");
+                    String location = finalobject.getString("location");
+                    String category = finalobject.getString("category");
+                    int size = finalobject.getInt("size");
+                    int cost = finalobject.getInt("cost");
 
-                   finalBuilderbTextViewrerult.append(Mountain +"_" + ID + "_" + name + "_" + type +"_" + company +"_"
-                   +location+ "_" + category + "_" + size + "_" + cost + "\n");
-
+                    finalBuilderbTextViewrerult.append(ID + "_" + name + "_" + type + "_" + company + "_"
+                            + location + "_" + category + "_" + size + "_" + cost + "\n");
                 }
+
                 return finalBuilderbTextViewrerult.toString();
+
+
+
 
 
             } catch (MalformedURLException e) {
@@ -121,12 +132,13 @@ public class MainActivity<RequestQueue> extends AppCompatActivity {
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
-           bTextViewrerult.setText(json);
+            bTextViewrerult.setText(json);
 
         }
 
     }
-    private class JSNONTASK extends AsyncTask<URL,String,String>{
+
+    private class JSNONTASK extends AsyncTask<URL, String, String> {
         @Override
         protected String doInBackground(URL... urls) {
             return null;
