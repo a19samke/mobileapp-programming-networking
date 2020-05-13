@@ -10,22 +10,13 @@ public class Mountainname {
     private int size;
     private int cost;
 
-
-
-    public Mountainname(String ID, String type,  String location, String name, int size, int cost) {
+    public Mountainname(String ID, String type, String name, String location, int size, int cost) {
         this.ID = ID;
         this.type = type;
         this.name = name;
         this.location = location;
         this.size = size;
         this.cost = cost;
-
-
-
-
-    }
-
-    public Mountainname(String name, String location, String size) {
     }
 
     public String getID() {
@@ -51,4 +42,11 @@ public class Mountainname {
     public int getCost() {
         return cost;
     }
+
+    @Override
+    public String toString() {
+        return "Name" + "\n"+  name + "\n" + "Size" + "\n"  + size + "\n" +"Location" + "\n" +location;
+
+    }
+
 }

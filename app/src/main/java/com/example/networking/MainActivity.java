@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -44,11 +45,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Mainactivity";
-    private TextView bTextViewrerult;
-
     ArrayList<Mountainname> items;
     ArrayAdapter<Mountainname> adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,25 +55,23 @@ public class MainActivity extends AppCompatActivity {
 
         items = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,R.layout.row,items);
-        ListView view = findViewById(R.id.textView2);
+        ListView view = findViewById(R.id.list_view);
         view.setAdapter(adapter);
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 Mountainname mountainname = items.get(i);
-                String Messeg ="the mountion" + mountainname.getID()+
-                        "is locatid" + mountainname.getType()+
-                        "is " + mountainname.getName() +
-                        "get" + mountainname.getLocation() +
-                        "get" +mountainname.getSize() +
+                String Messeg ="get" + mountainname.getID()+
+                        "get" + mountainname.getType()+
+                        "The name of the mountion" + mountainname.getName() +
+                        "The mountion is locatied" + mountainname.getLocation() +
+                        "The mountions saize is " +mountainname.getSize() +
                         "."+ mountainname.getCost();
-
-
+                Toast.makeText(MainActivity.this, Messeg, Toast.LENGTH_SHORT).show();
             }
 
         });
         new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -99,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     builder.append(line).append("\n");
                 }
                 return builder.toString();
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -133,9 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     String location = jsonObject.getString("location");
                     int size = jsonObject.getInt("size");
                     int cost = jsonObject.getInt("cost");
-
                     Mountainname mountainname = new Mountainname(ID, type, name, location, size,cost);
-
                     items.add(mountainname);
                 }
                 adapter.notifyDataSetChanged();
