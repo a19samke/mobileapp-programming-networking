@@ -61,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 Mountainname mountainname = items.get(i);
-                String Messeg ="get" + mountainname.getID()+
+                String Messeg =" Id for the muntion is, " + mountainname.getID()+
                         "get" + mountainname.getType()+
-                        "The name of the mountion" + mountainname.getName() +
-                        "The mountion is locatied" + mountainname.getLocation() +
-                        "The mountions saize is " +mountainname.getSize() +
+                        " then we have the mountion name, " + mountainname.getName() +
+                        " After that we have where the mountion is locatied, " + mountainname.getLocation() +
+                        "  and at the end we have the mountions hieght" +mountainname.getSize() +
                         "."+ mountainname.getCost();
-                Toast.makeText(MainActivity.this, Messeg, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(MainActivity.this, Messeg, Toast.LENGTH_LONG).show();
             }
 
         });
