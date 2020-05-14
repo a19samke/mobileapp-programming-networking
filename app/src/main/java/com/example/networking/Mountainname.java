@@ -48,7 +48,6 @@ public class Mountainname {
     @Override
     public String toString() {
         return "ID"+ "\n" + ID + "\n" + "Name" + "\n"+  name + "\n" + "Size" + "\n"  + size + "\n" +" Location " + "\n" +location;
-
     }
 
 }
